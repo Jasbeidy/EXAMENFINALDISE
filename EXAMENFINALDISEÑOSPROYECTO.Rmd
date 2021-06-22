@@ -1,0 +1,122 @@
+---
+title: "ANALISIS FACTORIAL"
+author: "Jasbeidy Marcela Ortiz Sanchez"
+date: "1950133"
+output: github_document
+---
+
+# IMPORTAR LA BASE DE DATOS EN FORMA EXCEL  
+```{r}
+library(readxl)
+datos<- read_excel("C:/Users/Jasbeidy Ortiz/Downloads/tabla excel (3).xlsx")
+```
+
+
+# TIPIFICACION O ESTANDARIZACION DE LAS VARIABLES  
+la tipificacion permite que todas las varfiables metricas gocen de una misma unidad de medida estdistica.
+```{r}
+datost<- datos #crear una nueva base de datos o data frame
+datost<- scale(datost, center= T , scale= T)
+datost<- as.data.frame(datost)
+
+```
+
+
+
+
+#NORMALIDAD MULTIVARIANTE   
+HO: normalidad multivariante 
+H1: no normalidad multivariante 
+confianza= 95%
+Alfa= 5% = 0,05
+P value > alfa: no se rechaza a la HO (Normalidad)
+P Value < alfa: se rechaza a la HO (No normalidad)
+```{r}
+library(MVN)
+mvn(datost[2:7])
+```
+
+# MATRIZ DE CORRELACIONES
+HO: Correlacion entre las variables=0 (no hay correacion)
+H1: Correlacion diferente de 0 (si hay correlacion)
+
+cuando no se rechaza la HO, no se aplica AFE.
+Se rechace HO, si para aplicar AFE.
+
+
+```{r}
+library(psych)
+corr.test(datost[,2:7])
+correlaciones<- corr.test(datost[,2:7]) #se crea la matriz de correlaciones
+correlaciones$r #matriz de correlaciones
+r <-as.matrix(correlaciones$r)
+```
+Alfa=0.05
+P value > alfa: no se rechaza HO estamos en esta situacion ,por lo tanto no se aplica Analisis Factorial Exploratorio
+P value < alfa: se rechaza HO
+
+# INDICADORES DE APLICABILIDAD DEL AFE(BONDAD DEL AJUSTE)
+## CONTRASTE DE ESFERICIDAD DE BARTLETT
+HO: las correlaciones teoricas entre cada par de variables es nulo
+H1: Las correlaciones teoricas entre cada par de variables no es nula
+
+P value > alfa: no s e aplica el AFE ( no se rechaza HO)
+P value < alfa: si se aplica el AFE (se rechaza HO)
+
+```{r}
+dim(datost) #tamaño de la muestra=30 personas 
+cortest.bartlett(r, n=30)
+```
+como el P value es menor a alfa,se rechaza la HO,por lo tanto la correlaciones teoricas entre cada par de variables es nulo,es decir,si es aplicable el analisis factorial exploratorio (AFE).
+
+## MEDIDA DE ADECUACION MUESTRAL DE KAISER, MEYER Y OKLIN( KMO)
+Estudia variable por variables,si son o no aceptadas en el modelo para hacer AFE. (que variables elimino o mantengo)
+Se mantiene una variable en el modelo,si el KNO es igual o mayor a 0,7.
+se elimina una variable del modelo,si el KNO es menor a 0,7.
+
+```{r}
+KMO(r)
+```
+KMO= 0.5 El modelo es miserable 
+KMO Minutos jugados=0.52 (miserable)
+Minutos=0.47 (Unnaceptable)
+Edad=0.45 (Unnaceptable)
+Altura=0.69 (Middling)
+Peso=0.50 (Miserable)
+Masa Grama=0.57  (Miserable)
+
+
+# DETERMINACION DEL NUMERO DE FACTORES A EXTRAER 
+## metodos de las componentes principales iteradas (o Ejes principales)
+
+Este metodo de las ejes principales es de naturaliza no parametrica,es decir, que se ocupa,cuando no hay normalidad multivariante;pero,tambien es valido para modelos parametricos (normalidad multivariante)
+
+```{r}
+fa.parallel(r, fm="pa", n.obs=30, ylabel = "Eigenvalues") 
+```
+
+con el metodo de los ejes principales no se extraeria ningun factor 
+
+## Metodo de las componentes principales
+metodos parametrico,sirve solo para modelos con normalidad multivariante.
+```{r}
+fa.parallel(r, fm="pc", n.obs=30, ylabel = "Eigenvalues")
+```
+con el metodo de las componentes  principales no se extraeria ningun factor
+
+## Metodo de la maxima verosimilitud
+ con el metodo parametrico,sirve solo para modelos con normalidad multivariante.
+
+```{r}
+fa.parallel(r, fm="ml", n.obs=30, ylabel = "Eigenvalues")
+```
+con el metodo de la maxima verosimilitud no se recomienda ningun factor 
+
+## Metodo paralelo con interaciones
+metodo parametrico,sirve solo para modelos con normalidad multivariante.
+
+```{r}
+library(paran)
+paran(r, iterations= 100,graph= T)
+```
+
