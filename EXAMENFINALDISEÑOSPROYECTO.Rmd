@@ -8,7 +8,7 @@ output: github_document
 # IMPORTAR LA BASE DE DATOS EN FORMA EXCEL  
 ```{r}
 library(readxl)
-datos<- read_excel("C:/Users/Jasbeidy Ortiz/Downloads/tabla excel (3).xlsx")
+datos<- read_excel("C:/Users/Jasbeidy Ortiz/Downloads/tabla excel (5).xlsx")
 ```
 
 
@@ -77,13 +77,13 @@ se elimina una variable del modelo,si el KNO es menor a 0,7.
 ```{r}
 KMO(r)
 ```
-KMO= 0.5 El modelo es miserable 
-KMO Minutos jugados=0.52 (miserable)
-Minutos=0.47 (Unnaceptable)
-Edad=0.45 (Unnaceptable)
-Altura=0.69 (Middling)
-Peso=0.50 (Miserable)
-Masa Grama=0.57  (Miserable)
+KMO= 0.54 El modelo es miserable 
+KMO Minutos =0.53 (miserable)
+Minutos jugados=0.67 (Unnaceptable)
+Vueltas=0.30 (Unnaceptable)
+Altura=0.54 (Miserable)
+Horas=0.52 (Miserable)
+Masa Grama=0.73  (regular)
 
 
 # DETERMINACION DEL NUMERO DE FACTORES A EXTRAER 
@@ -95,14 +95,14 @@ Este metodo de las ejes principales es de naturaliza no parametrica,es decir, qu
 fa.parallel(r, fm="pa", n.obs=30, ylabel = "Eigenvalues") 
 ```
 
-con el metodo de los ejes principales no se extraeria ningun factor 
+con el metodo de los ejes principales es 1
 
 ## Metodo de las componentes principales
 metodos parametrico,sirve solo para modelos con normalidad multivariante.
 ```{r}
 fa.parallel(r, fm="pc", n.obs=30, ylabel = "Eigenvalues")
 ```
-con el metodo de las componentes  principales no se extraeria ningun factor
+con el metodo de las componentes  principales 1 factor
 
 ## Metodo de la maxima verosimilitud
  con el metodo parametrico,sirve solo para modelos con normalidad multivariante.
@@ -110,13 +110,132 @@ con el metodo de las componentes  principales no se extraeria ningun factor
 ```{r}
 fa.parallel(r, fm="ml", n.obs=30, ylabel = "Eigenvalues")
 ```
-con el metodo de la maxima verosimilitud no se recomienda ningun factor 
+con el metodo de la maxima verosimilitud 1 factor 
 
 ## Metodo paralelo con interaciones
 metodo parametrico,sirve solo para modelos con normalidad multivariante.
 
 ```{r}
 library(paran)
-paran(r, iterations= 100,graph= T)
+paran(r, iterations= 100,graph= F)
 ```
+
+con el metodo de Horn s se recomienda extraer 1 factor.
+
+# METODOS DE EXTRACCION DE FACTORES
+## METODO DE ANALISIS DE LOS COMPONENTES PRINCIPALES(ACP)
+```{r}
+acp<- principal(r, nfactors=1, rotate= "none")
+acp
+```
+
+PC1: cargas factoriales de cada variable.
+h2: Comunalidad(varianza comun explicado).
+Minutos es explicado en un 35% por el factor extraido.Minutos jugados es explicada en un 57% por el factor extraido,vueltas por un 0,4%,altura por un 27%,horas por un 58% y masa grama por un 25%
+
+mientras mas alta sea h2 es mejor el modelo. 0;1
+
+u2: Especificacidad (varianza residuall o varianza no explicada) Minutos no es explicada en un 65%,minutos jugados en 43%,vueltas en 96%,altura en 73%,horas en 42% y masa grama en 75%
+
+Mientras mas pequeños sea u2 es mejor el modelo. 0;1
+
+h2+u2=1
+Comunidad+Especificada=1
+varianza explicada+varianza no explicada=1
+
+SS loadings= 2.06 (es la varianza explicada en valores absolutos o la suma de los h2 )
+
+proportion var=0.34 = 34% ( El % que la varianza explicada representa del total)
+
+Lo ideal es que proportion var sea lo mas cercano a 1.
+
+RMSR=0.56 (Raiz cuadrada media de los residuos)
+teoricamente un modelo presenta una solcuion adecuada cuando el RSMR es menor o igual a 0.56.
+
+## METODOS DE LOS EJES PRINCIPALES O COMPONENTES PRINCIPALES ITERADAS (CPI)
+
+```{r}
+cpi<-fa(r, nfactors = 1, fm= "pa", rotate =  "none", n.obs= 30)
+cpi
+```
+
+Proportion Var=23%
+RSMR= 0,11
+
+## METODO DE MAXIMA VEROSIMILITUD
+```{r}
+mve<- fa(r,nfactors=1, fm= "ml", rotate= "none", n.obs= 30)
+mve
+```
+
+Proportion Var= 23%
+(RMSR)=  0.11 
+
+### RESUMEN
+ACP= var=34%  RSMR= 0,56
+CPI= VAR=23%  RSMR=0,11
+MVE= VAR=23%  RSMR=0,11
+
+¿CON CUAL NOS QUEDAMOS?
+aquel modelo que tenga la proportion var mas alta y el RMSR mas pequeña
+
+
+## PRESENTACION GRAFICA DE LOS FACTORES EXTRAIDOS 
+## metodo de analisis de los componentes principales (ACP)
+
+
+```{r}
+##Solo se grafica cuando hay 2 factores a extraer,con 1 factor no hay grafica
+
+```
+
+## METODO DE ANALISIS DE LAS COMPONENTES PRINCIPALES ITERADAS (ACP)
+```{r}
+acp1<- principal(datost[,2:7], nfactors = 1, rotate = "none", scores = T)
+acp1$scores
+puntacionesfactoriales_acp<- acp1$scores
+puntacionesfactoriales_acp<- as.data.frame(puntacionesfactoriales_acp)
+```
+
+## METODO DE LAS COMPONENTES PRINCIPALES ITERADAS (CPI)
+```{r}
+cpi1<- fa(datost[,2:7], nfactors = 1, fm= "pa", rotate = "none", n.obs = 30,scores = "regression")
+cpi1$scores
+puntfact_cpi<- cpi1$scores
+puntfact_cpi<- as.data.frame(puntfact_cpi)
+
+```
+
+## METODOS DE LA MAXIMA VEROSIMILITUD
+```{r}
+mvel<- fa(datost[,2:7], nfactors = 1, fm= "ml", rotate = "none", n.obs = 30,scores = "regression")
+mvel$scores
+puntfact_mve<- mvel$scores
+puntfact_mve<- as.data.frame(puntfact_mve)
+
+```
+
+# OBTENCION DE LOS FACTORES EXTRAIDOS 
+aqui se  trabaja con el metodo que el investigador decidio (ACP,CPI,MVE)
+
+```{r}
+factor.scores(r, mve,method = "Trurstone")
+```
+
+## AGREGAR FACTOR EXTRAIDO ( PUNTACIONES FACTORIALES) EN EL DATA FRAME ORIGINAL
+
+```{r}
+datos_puntaciones<- c(datos, puntacionesfactoriales_acp)
+datos_puntaciones<- as.data.frame(datos_puntaciones)
+
+```
+
+
+# GUARDAR EL DATA FRAME "DATOS_PUNTACIONES"
+```{r}
+setwd("C:/Users/Jasbeidy Ortiz/Desktop") #efine donde guardar tu archivo excel csv
+write.table(datos_puntaciones, file = "encuesta.csv", sep = ";", row.names = F, dec =";")
+```
+
+
 

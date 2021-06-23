@@ -7,7 +7,7 @@ Jasbeidy Marcela Ortiz Sanchez
 
 ``` r
 library(readxl)
-datos<- read_excel("C:/Users/Jasbeidy Ortiz/Downloads/tabla excel (3).xlsx")
+datos<- read_excel("C:/Users/Jasbeidy Ortiz/Downloads/tabla excel (5).xlsx")
 ```
 
 # TIPIFICACION O ESTANDARIZACION DE LAS VARIABLES
@@ -41,35 +41,35 @@ mvn(datost[2:7])
 ```
 
     ## $multivariateNormality
-    ##              Test         Statistic           p value Result
-    ## 1 Mardia Skewness  43.7553756645497 0.882933727539232    YES
-    ## 2 Mardia Kurtosis -1.53971234877027 0.123630485401952    YES
-    ## 3             MVN              <NA>              <NA>    YES
+    ##              Test         Statistic            p value Result
+    ## 1 Mardia Skewness  46.0587091513111  0.825748646699118    YES
+    ## 2 Mardia Kurtosis -1.66364390197536 0.0961836130276497    YES
+    ## 3             MVN              <NA>               <NA>    YES
     ## 
     ## $univariateNormality
     ##           Test        Variable Statistic   p value Normality
-    ## 1 Shapiro-Wilk Minutos jugados    0.9530  0.2027      YES   
-    ## 2 Shapiro-Wilk   Minutos (%)      0.8879  0.0043      NO    
-    ## 3 Shapiro-Wilk      Edad          0.9647  0.4056      YES   
+    ## 1 Shapiro-Wilk   Minutos (%)      0.8879  0.0043      NO    
+    ## 2 Shapiro-Wilk Minutos jugados    0.9529  0.2023      YES   
+    ## 3 Shapiro-Wilk     vueltas        0.8772  0.0024      NO    
     ## 4 Shapiro-Wilk   Altura (cm)      0.8763  0.0023      NO    
-    ## 5 Shapiro-Wilk    Peso (Kg)       0.9197  0.0264      NO    
-    ## 6 Shapiro-Wilk Masa grasa (%)     0.5774  <0.001      NO    
+    ## 5 Shapiro-Wilk      Horas         0.7238  <0.001      NO    
+    ## 6 Shapiro-Wilk Masa grasa (%)     0.6366  <0.001      NO    
     ## 
     ## $Descriptives
     ##                  n          Mean Std.Dev      Median        Min      Max
-    ## Minutos jugados 30  2.671474e-16       1  0.06243548 -1.8722977 1.844564
     ## Minutos (%)     30  3.537246e-16       1  0.26741370 -2.2851716 1.118275
-    ## Edad            30  3.682339e-16       1  0.08725821 -1.7825606 1.957077
+    ## Minutos jugados 30 -1.272112e-16       1  0.02952382 -1.7419056 1.800953
+    ## vueltas         30  1.332304e-16       1 -0.03874320 -1.7821870 1.704701
     ## Altura (cm)     30  1.357698e-15       1 -0.26263997 -1.2176944 1.647469
-    ## Peso (Kg)       30  7.012547e-16       1  0.04956527 -1.4993495 1.722393
-    ## Masa grasa (%)  30 -1.554312e-15       1 -0.64365030 -0.6436503 1.501851
+    ## Horas           30 -1.896595e-16       1 -0.36514837 -0.9128709 1.278019
+    ## Masa grasa (%)  30  2.072272e-16       1 -0.91969198 -0.9196920 1.051077
     ##                       25th      75th        Skew   Kurtosis
-    ## Minutos jugados -0.7058135 0.3284482  0.22284717 -0.8818769
     ## Minutos (%)     -0.5530602 0.7232325 -0.84719219 -0.4280534
-    ## Edad            -0.6606693 0.4612220  0.08461497 -0.9304853
+    ## Minutos jugados -0.8561909 0.8045242  0.14933801 -1.0437017
+    ## vueltas         -0.6198911 0.5424047  0.05768966 -0.7743993
     ## Altura (cm)     -0.7401672 1.1699417  0.31050440 -1.5257576
-    ## Peso (Kg)       -0.9417402 0.8240227  0.13967529 -1.4587371
-    ## Masa grasa (%)  -0.6436503 1.5018507  0.82959373 -1.3535979
+    ## Horas           -0.9128709 1.2780193  0.31646192 -1.7633333
+    ## Masa grasa (%)  -0.9196920 1.0510765  0.12700508 -2.0488690
 
 # MATRIZ DE CORRELACIONES
 
@@ -86,36 +86,36 @@ corr.test(datost[,2:7])
 
     ## Call:corr.test(x = datost[, 2:7])
     ## Correlation matrix 
-    ##                 Minutos jugados Minutos (%)  Edad Altura (cm) Peso (Kg)
-    ## Minutos jugados            1.00       -0.04  0.07        0.17      0.06
-    ## Minutos (%)               -0.04        1.00  0.50        0.01      0.24
-    ## Edad                       0.07        0.50  1.00       -0.03     -0.01
-    ## Altura (cm)                0.17        0.01 -0.03        1.00      0.15
-    ## Peso (Kg)                  0.06        0.24 -0.01        0.15      1.00
-    ## Masa grasa (%)            -0.27       -0.05  0.03       -0.17     -0.33
+    ##                 Minutos (%) Minutos jugados vueltas Altura (cm) Horas
+    ## Minutos (%)            1.00            0.35    0.23        0.01 -0.37
+    ## Minutos jugados        0.35            1.00    0.21       -0.24 -0.44
+    ## vueltas                0.23            0.21    1.00       -0.10  0.16
+    ## Altura (cm)            0.01           -0.24   -0.10        1.00  0.28
+    ## Horas                 -0.37           -0.44    0.16        0.28  1.00
+    ## Masa grasa (%)         0.08            0.18   -0.04       -0.28 -0.27
     ##                 Masa grasa (%)
-    ## Minutos jugados          -0.27
-    ## Minutos (%)              -0.05
-    ## Edad                      0.03
-    ## Altura (cm)              -0.17
-    ## Peso (Kg)                -0.33
+    ## Minutos (%)               0.08
+    ## Minutos jugados           0.18
+    ## vueltas                  -0.04
+    ## Altura (cm)              -0.28
+    ## Horas                    -0.27
     ## Masa grasa (%)            1.00
     ## Sample Size 
     ## [1] 30
     ## Probability values (Entries above the diagonal are adjusted for multiple tests.) 
-    ##                 Minutos jugados Minutos (%) Edad Altura (cm) Peso (Kg)
-    ## Minutos jugados            0.00        1.00 1.00        1.00      1.00
-    ## Minutos (%)                0.85        0.00 0.08        1.00      1.00
-    ## Edad                       0.73        0.01 0.00        1.00      1.00
-    ## Altura (cm)                0.37        0.94 0.87        0.00      1.00
-    ## Peso (Kg)                  0.73        0.21 0.95        0.44      0.00
-    ## Masa grasa (%)             0.15        0.81 0.87        0.36      0.08
+    ##                 Minutos (%) Minutos jugados vueltas Altura (cm) Horas
+    ## Minutos (%)            0.00            0.77    1.00        1.00  0.60
+    ## Minutos jugados        0.06            0.00    1.00        1.00  0.22
+    ## vueltas                0.21            0.26    0.00        1.00  1.00
+    ## Altura (cm)            0.94            0.21    0.59        0.00  1.00
+    ## Horas                  0.04            0.01    0.40        0.13  0.00
+    ## Masa grasa (%)         0.67            0.35    0.85        0.13  0.14
     ##                 Masa grasa (%)
-    ## Minutos jugados              1
     ## Minutos (%)                  1
-    ## Edad                         1
+    ## Minutos jugados              1
+    ## vueltas                      1
     ## Altura (cm)                  1
-    ## Peso (Kg)                    1
+    ## Horas                        1
     ## Masa grasa (%)               0
     ## 
     ##  To see confidence intervals of the correlations, print with the short=FALSE option
@@ -125,19 +125,19 @@ correlaciones<- corr.test(datost[,2:7]) #se crea la matriz de correlaciones
 correlaciones$r #matriz de correlaciones
 ```
 
-    ##                 Minutos jugados Minutos (%)        Edad Altura (cm)   Peso (Kg)
-    ## Minutos jugados      1.00000000 -0.03522535  0.06514049  0.16803608  0.06492098
-    ## Minutos (%)         -0.03522535  1.00000000  0.49625331  0.01361037  0.23610757
-    ## Edad                 0.06514049  0.49625331  1.00000000 -0.03171297 -0.01166465
-    ## Altura (cm)          0.16803608  0.01361037 -0.03171297  1.00000000  0.14762373
-    ## Peso (Kg)            0.06492098  0.23610757 -0.01166465  0.14762373  1.00000000
-    ## Masa grasa (%)      -0.26844175 -0.04676221  0.03043357 -0.17487755 -0.32911122
+    ##                 Minutos (%) Minutos jugados     vueltas Altura (cm)      Horas
+    ## Minutos (%)      1.00000000       0.3482248  0.23481547  0.01361037 -0.3719107
+    ## Minutos jugados  0.34822478       1.0000000  0.21417554 -0.23627023 -0.4405166
+    ## vueltas          0.23481547       0.2141755  1.00000000 -0.10143613  0.1609833
+    ## Altura (cm)      0.01361037      -0.2362702 -0.10143613  1.00000000  0.2841000
+    ## Horas           -0.37191065      -0.4405166  0.16098327  0.28410005  1.0000000
+    ## Masa grasa (%)   0.08095146       0.1785666 -0.03686049 -0.28232868 -0.2729604
     ##                 Masa grasa (%)
-    ## Minutos jugados    -0.26844175
-    ## Minutos (%)        -0.04676221
-    ## Edad                0.03043357
-    ## Altura (cm)        -0.17487755
-    ## Peso (Kg)          -0.32911122
+    ## Minutos (%)         0.08095146
+    ## Minutos jugados     0.17856660
+    ## vueltas            -0.03686049
+    ## Altura (cm)        -0.28232868
+    ## Horas              -0.27296042
     ## Masa grasa (%)      1.00000000
 
 ``` r
@@ -169,10 +169,10 @@ cortest.bartlett(r, n=30)
 ```
 
     ## $chisq
-    ## [1] 16.47855
+    ## [1] 24.05747
     ## 
     ## $p.value
-    ## [1] 0.3509787
+    ## [1] 0.06412394
     ## 
     ## $df
     ## [1] 15
@@ -194,16 +194,16 @@ KMO(r)
 
     ## Kaiser-Meyer-Olkin factor adequacy
     ## Call: KMO(r = r)
-    ## Overall MSA =  0.5
+    ## Overall MSA =  0.54
     ## MSA for each item = 
-    ## Minutos jugados     Minutos (%)            Edad     Altura (cm)       Peso (Kg) 
-    ##            0.52            0.47            0.45            0.69            0.50 
+    ##     Minutos (%) Minutos jugados         vueltas     Altura (cm)           Horas 
+    ##            0.53            0.67            0.30            0.54            0.52 
     ##  Masa grasa (%) 
-    ##            0.57
+    ##            0.73
 
-KMO= 0.5 El modelo es miserable KMO Minutos jugados=0.52 (miserable)
-Minutos=0.47 (Unnaceptable) Edad=0.45 (Unnaceptable) Altura=0.69
-(Middling) Peso=0.50 (Miserable) Masa Grama=0.57 (Miserable)
+KMO= 0.54 El modelo es miserable KMO Minutos =0.53 (miserable) Minutos
+jugados=0.67 (Unnaceptable) Vueltas=0.30 (Unnaceptable) Altura=0.54
+(Miserable) Horas=0.52 (Miserable) Masa Grama=0.73 (regular)
 
 # DETERMINACION DEL NUMERO DE FACTORES A EXTRAER
 
@@ -245,11 +245,18 @@ fa.parallel(r, fm="pa", n.obs=30, ylabel = "Eigenvalues")
     ## Warning in fac(r = r, nfactors = nfactors, n.obs = n.obs, rotate = rotate, : An
     ## ultra-Heywood case was detected. Examine the results carefully
 
+    ## Warning in fa.stats(r = r, f = f, phi = phi, n.obs = n.obs, np.obs = np.obs, :
+    ## The estimated weights for the factor scores are probably incorrect. Try a
+    ## different factor score estimation method.
+
+    ## Warning in fac(r = r, nfactors = nfactors, n.obs = n.obs, rotate = rotate, : An
+    ## ultra-Heywood case was detected. Examine the results carefully
+
 ![](EXAMENFINALDISEÑOSPROYECTO_files/figure-gfm/unnamed-chunk-7-1.png)<!-- -->
 
-    ## Parallel analysis suggests that the number of factors =  0  and the number of components =  0
+    ## Parallel analysis suggests that the number of factors =  0  and the number of components =  1
 
-con el metodo de los ejes principales no se extraeria ningun factor
+con el metodo de los ejes principales es 1
 
 ## Metodo de las componentes principales
 
@@ -260,6 +267,8 @@ multivariante.
 fa.parallel(r, fm="pc", n.obs=30, ylabel = "Eigenvalues")
 ```
 
+    ## factor method not specified correctly, minimum residual (unweighted least squares  used
+    ## factor method not specified correctly, minimum residual (unweighted least squares  used
     ## factor method not specified correctly, minimum residual (unweighted least squares  used
 
     ## Warning in fa.stats(r = r, f = f, phi = phi, n.obs = n.obs, np.obs = np.obs, :
@@ -276,23 +285,9 @@ fa.parallel(r, fm="pc", n.obs=30, ylabel = "Eigenvalues")
     ## The estimated weights for the factor scores are probably incorrect. Try a
     ## different factor score estimation method.
 
-    ## factor method not specified correctly, minimum residual (unweighted least squares  used
-
-    ## Warning in fa.stats(r = r, f = f, phi = phi, n.obs = n.obs, np.obs = np.obs, :
-    ## The estimated weights for the factor scores are probably incorrect. Try a
-    ## different factor score estimation method.
-
     ## Warning in fa.stats(r = r, f = f, phi = phi, n.obs = n.obs, np.obs = np.obs, :
     ## An ultra-Heywood case was detected. Examine the results carefully
 
-    ## factor method not specified correctly, minimum residual (unweighted least squares  used
-
-    ## Warning in fa.stats(r = r, f = f, phi = phi, n.obs = n.obs, np.obs = np.obs, :
-    ## The estimated weights for the factor scores are probably incorrect. Try a
-    ## different factor score estimation method.
-
-    ## factor method not specified correctly, minimum residual (unweighted least squares  used
-    ## factor method not specified correctly, minimum residual (unweighted least squares  used
     ## factor method not specified correctly, minimum residual (unweighted least squares  used
     ## factor method not specified correctly, minimum residual (unweighted least squares  used
     ## factor method not specified correctly, minimum residual (unweighted least squares  used
@@ -317,12 +312,35 @@ fa.parallel(r, fm="pc", n.obs=30, ylabel = "Eigenvalues")
     ## An ultra-Heywood case was detected. Examine the results carefully
 
     ## factor method not specified correctly, minimum residual (unweighted least squares  used
+
+    ## Warning in fa.stats(r = r, f = f, phi = phi, n.obs = n.obs, np.obs = np.obs, :
+    ## The estimated weights for the factor scores are probably incorrect. Try a
+    ## different factor score estimation method.
+
+    ## Warning in fa.stats(r = r, f = f, phi = phi, n.obs = n.obs, np.obs = np.obs, :
+    ## An ultra-Heywood case was detected. Examine the results carefully
+
     ## factor method not specified correctly, minimum residual (unweighted least squares  used
 
     ## Warning in fa.stats(r = r, f = f, phi = phi, n.obs = n.obs, np.obs = np.obs, :
     ## The estimated weights for the factor scores are probably incorrect. Try a
     ## different factor score estimation method.
 
+    ## Warning in fa.stats(r = r, f = f, phi = phi, n.obs = n.obs, np.obs = np.obs, :
+    ## An ultra-Heywood case was detected. Examine the results carefully
+
+    ## factor method not specified correctly, minimum residual (unweighted least squares  used
+    ## factor method not specified correctly, minimum residual (unweighted least squares  used
+
+    ## Warning in fa.stats(r = r, f = f, phi = phi, n.obs = n.obs, np.obs = np.obs, :
+    ## The estimated weights for the factor scores are probably incorrect. Try a
+    ## different factor score estimation method.
+
+    ## Warning in fa.stats(r = r, f = f, phi = phi, n.obs = n.obs, np.obs = np.obs, :
+    ## An ultra-Heywood case was detected. Examine the results carefully
+
+    ## factor method not specified correctly, minimum residual (unweighted least squares  used
+    ## factor method not specified correctly, minimum residual (unweighted least squares  used
     ## factor method not specified correctly, minimum residual (unweighted least squares  used
     ## factor method not specified correctly, minimum residual (unweighted least squares  used
 
@@ -339,15 +357,14 @@ fa.parallel(r, fm="pc", n.obs=30, ylabel = "Eigenvalues")
     ## The estimated weights for the factor scores are probably incorrect. Try a
     ## different factor score estimation method.
 
-    ## factor method not specified correctly, minimum residual (unweighted least squares  used
-    ## factor method not specified correctly, minimum residual (unweighted least squares  used
+    ## Warning in fa.stats(r = r, f = f, phi = phi, n.obs = n.obs, np.obs = np.obs, :
+    ## An ultra-Heywood case was detected. Examine the results carefully
 
 ![](EXAMENFINALDISEÑOSPROYECTO_files/figure-gfm/unnamed-chunk-8-1.png)<!-- -->
 
-    ## Parallel analysis suggests that the number of factors =  0  and the number of components =  0
+    ## Parallel analysis suggests that the number of factors =  0  and the number of components =  1
 
-con el metodo de las componentes principales no se extraeria ningun
-factor
+con el metodo de las componentes principales 1 factor
 
 ## Metodo de la maxima verosimilitud
 
@@ -360,10 +377,76 @@ fa.parallel(r, fm="ml", n.obs=30, ylabel = "Eigenvalues")
 
 ![](EXAMENFINALDISEÑOSPROYECTO_files/figure-gfm/unnamed-chunk-9-1.png)<!-- -->
 
-    ## Parallel analysis suggests that the number of factors =  0  and the number of components =  0
+    ## Parallel analysis suggests that the number of factors =  0  and the number of components =  1
 
-con el metodo de la maxima verosimilitud no se recomienda ningun factor
+con el metodo de la maxima verosimilitud 1 factor
 
 ## Metodo paralelo con interaciones
 
 metodo parametrico,sirve solo para modelos con normalidad multivariante.
+
+``` r
+library(paran)
+```
+
+    ## Loading required package: MASS
+
+``` r
+paran(r, iterations= 100,graph= F)
+```
+
+    ## 
+    ## Using eigendecomposition of correlation matrix.
+    ## Computing: 10%  20%  30%  40%  50%  60%  70%  80%  90%  100%
+    ## 
+    ## 
+    ## Results of Horn's Parallel Analysis for component retention
+    ## 100 iterations, using the mean estimate
+    ## 
+    ## -------------------------------------------------- 
+    ## Component   Adjusted    Unadjusted    Estimated 
+    ##             Eigenvalue  Eigenvalue    Bias 
+    ## -------------------------------------------------- 
+    ## 1           1.494174    3.276493      1.782318
+    ## -------------------------------------------------- 
+    ## 
+    ## Adjusted eigenvalues > 1 indicate dimensions to retain.
+    ## (1 components retained)
+
+con el metodo de Horn s se recomienda extraer 1 factor.
+
+# METODOS DE EXTRACCION DE FACTORES
+
+## METODO DE ANALISIS DE LOS COMPONENTES PRINCIPALES(ACP)
+
+``` r
+acp<- principal(r, nfactors=1, rotate= "none")
+acp
+```
+
+    ## Principal Components Analysis
+    ## Call: principal(r = r, nfactors = 1, rotate = "none")
+    ## Standardized loadings (pattern matrix) based upon correlation matrix
+    ##                   PC1   h2   u2 com
+    ## Minutos (%)      0.59 0.35 0.65   1
+    ## Minutos jugados  0.75 0.57 0.43   1
+    ## vueltas          0.20 0.04 0.96   1
+    ## Altura (cm)     -0.52 0.27 0.73   1
+    ## Horas           -0.76 0.58 0.42   1
+    ## Masa grasa (%)   0.50 0.25 0.75   1
+    ## 
+    ##                 PC1
+    ## SS loadings    2.06
+    ## Proportion Var 0.34
+    ## 
+    ## Mean item complexity =  1
+    ## Test of the hypothesis that 1 component is sufficient.
+    ## 
+    ## The root mean square of the residuals (RMSR) is  0.16 
+    ## 
+    ## Fit based upon off diagonal values = 0.56
+
+PC1: cargas factoriales de cada variable. h2: Comunalidad(varianza comun
+explicado).
+
+## 
